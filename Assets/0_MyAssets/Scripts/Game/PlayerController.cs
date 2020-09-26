@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         playerState = PlayerState.Jump;
         Vector3[] path = new Vector3[]
         {
-            new Vector3(wallsDistance * -GetWallSign/2f,2f,0),
+            new Vector3(wallsDistance * -GetWallSign/2f,1f,0),
             new Vector3(wallsDistance * -GetWallSign,0,0),
         };
         Sequence sequence = DOTween.Sequence()

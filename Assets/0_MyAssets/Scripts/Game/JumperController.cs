@@ -13,6 +13,6 @@ public class JumperController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        SetOnCollisionEnter(other);
+        //SetOnCollisionEnter(other);
     }
 }
