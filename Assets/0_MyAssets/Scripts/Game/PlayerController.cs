@@ -55,12 +55,13 @@ public class PlayerController : MonoBehaviour
         playerState = PlayerState.Jump;
         Vector3[] path = new Vector3[]
         {
-            new Vector3(wallsDistance * -GetWallSign/2f,1f,0),
+            new Vector3(wallsDistance * -GetWallSign/2f,0.5f,0),
             new Vector3(wallsDistance * -GetWallSign,0,0),
         };
+        float duration = 0.3f;
         Sequence sequence = DOTween.Sequence()
-        .Append(jumperTf.DOLocalPath(path, 0.5f, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
-        .Join(jumperTf.DOLocalRotate(new Vector3(0, 180 * GetWallSign, 0), 0.5f).SetRelative().SetEase(Ease.InSine))
+        .Append(jumperTf.DOLocalPath(path, duration, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
+        .Join(jumperTf.DOLocalRotate(new Vector3(0, 180 * GetWallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
         .OnComplete(() =>
         {
             isRunRightWall = !isRunRightWall;
