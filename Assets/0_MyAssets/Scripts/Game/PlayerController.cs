@@ -18,20 +18,17 @@ public class PlayerController : MonoBehaviour
     PlayerState playerState = PlayerState.Run;
     bool isRunRightWall;
     float wallsDistance;
-    Tween jumpTween;
-    float GetSign => isRunRightWall ? 1 : -1;
+    float GetWallSign => isRunRightWall ? 1 : -1;
 
     void Start()
     {
         isRunRightWall = true;
         wallsDistance = Mathf.Abs(jumperTf.position.x) * 2;
-        jumperController.SetOnCollisionEnter += OnHitWall;
+        //jumperController.SetOnCollisionEnter += OnHitWall;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        transform.Translate(Vector3.up * speed);
-
         switch (playerState)
         {
             case PlayerState.Run:
@@ -45,6 +42,12 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+        // animator.SetBool("Jump", playerState == PlayerState.Jump);
+    }
+
+    private void FixedUpdate()
+    {
+        transform.Translate(Vector3.up * speed);
     }
 
     void Jump()
@@ -52,24 +55,17 @@ public class PlayerController : MonoBehaviour
         playerState = PlayerState.Jump;
         Vector3[] path = new Vector3[]
         {
-            new Vector3(wallsDistance * -GetSign/2f,2f,0),
-            new Vector3(wallsDistance * -GetSign,0,0),
+            new Vector3(wallsDistance * -GetWallSign/2f,2f,0),
+            new Vector3(wallsDistance * -GetWallSign,0,0),
         };
-        jumpTween = jumperTf
-            .DOLocalPath(path, 0.5f, PathType.CatmullRom)
-            .SetRelative()
-            .SetEase(Ease.Linear);
-    }
-
-    void OnHitWall(Collider other)
-    {
-        if (!other.gameObject.CompareTag("Wall")) return;
-        if (playerState != PlayerState.Jump) return;
-        playerState = PlayerState.Run;
-        isRunRightWall = !isRunRightWall;
-        //jumpTween.Kill();
-        jumperTf.RotateAround(jumperTf.position, Vector3.up, 180 * GetSign);
-        Debug.Log(0);
+        Sequence sequence = DOTween.Sequence()
+        .Append(jumperTf.DOLocalPath(path, 0.5f, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
+        .Join(jumperTf.DOLocalRotate(new Vector3(0, 180 * GetWallSign, 0), 0.5f).SetRelative().SetEase(Ease.InSine))
+        .OnComplete(() =>
+        {
+            isRunRightWall = !isRunRightWall;
+            playerState = PlayerState.Run;
+        });
     }
 
 }
