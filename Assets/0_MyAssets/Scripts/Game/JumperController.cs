@@ -36,7 +36,7 @@ public class JumperController : MonoBehaviour
         playerController.Dead();
         rb.useGravity = true;
         Vector3 vel = Vector3.zero;
-        vel.x = playerController.GetWallSign * -1 * 15f;
+        vel.x = Mathf.Sign(other.transform.position.x) * -1 * 15f;
         vel.y = -10f;
         rb.velocity = vel;
     }

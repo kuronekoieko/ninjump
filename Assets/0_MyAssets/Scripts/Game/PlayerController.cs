@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public PlayerState playerState = PlayerState.Run;
     bool isRunRightWall;
     float wallsDistance;
-    public float GetWallSign => isRunRightWall ? 1 : -1;
+    float GetWallSign => isRunRightWall ? 1 : -1;
     Sequence jumpSequence;
     void Start()
     {
@@ -57,20 +57,19 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        float wallSign = GetWallSign;
-        isRunRightWall = !isRunRightWall;
         playerState = PlayerState.Jump;
         Vector3[] path = new Vector3[]
         {
-            new Vector3(wallsDistance * -wallSign/2f,0.5f,0),
-            new Vector3(wallsDistance * -wallSign,0,0),
+            new Vector3(wallsDistance * -GetWallSign/2f,0.5f,0),
+            new Vector3(wallsDistance * -GetWallSign,0,0),
         };
         float duration = 0.3f;
         jumpSequence = DOTween.Sequence()
         .Append(jumperTf.DOLocalPath(path, duration, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
-        .Join(jumperTf.DOLocalRotate(new Vector3(35 * -wallSign, 180 * wallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
+        .Join(jumperTf.DOLocalRotate(new Vector3(35f * -GetWallSign, 180f * GetWallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
         .OnComplete(() =>
         {
+            isRunRightWall = !isRunRightWall;
             playerState = PlayerState.Run;
         });
     }
