@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             new Vector3(wallsDistance * -GetWallSign/2f,0.5f,0),
             new Vector3(wallsDistance * -GetWallSign,0,0),
         };
-        float duration = 0.3f;
+        float duration = 0.25f;
         jumpSequence = DOTween.Sequence()
         .Append(jumperTf.DOLocalPath(path, duration, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
         .Join(jumperTf.DOLocalRotate(new Vector3(35f * -GetWallSign, 180f * GetWallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
