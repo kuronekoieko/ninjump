@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         float duration = 0.3f;
         jumpSequence = DOTween.Sequence()
         .Append(jumperTf.DOLocalPath(path, duration, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
-        .Join(jumperTf.DOLocalRotate(new Vector3(0, 180 * wallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
+        .Join(jumperTf.DOLocalRotate(new Vector3(35 * -wallSign, 180 * wallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
         .OnComplete(() =>
         {
             playerState = PlayerState.Run;
