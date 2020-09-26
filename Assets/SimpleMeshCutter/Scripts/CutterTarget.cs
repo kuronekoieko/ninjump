@@ -13,14 +13,14 @@ namespace MeshCutter
         public System.Action<CutterTarget, GameObject[]> OnCutted;
         #endregion ### Events ###
 
-        [SerializeField][Tooltip("Material for cutted surface.")]
+        [SerializeField]
+        [Tooltip("Material for cutted surface.")]
         private Material _cutMaterial;
         public Material CutMaterial
         {
             get { return _cutMaterial; }
         }
 
-        [SerializeField]
         private Transform _mesh;
         public Transform Mesh
         {
@@ -80,6 +80,12 @@ namespace MeshCutter
             {
                 OnCutted.Invoke(this, cuttedObjects);
             }
+        }
+
+        private void Awake()
+        {
+            _mesh = transform;
+            if (_cutMaterial == null) _cutMaterial = GetComponent<Renderer>().material;
         }
     }
 }

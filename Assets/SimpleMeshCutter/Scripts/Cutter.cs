@@ -81,7 +81,7 @@ namespace MeshCutter
         {
             if (_cuttedInfoList.Count != 0)
             {
-                lock(_cuttedInfoList)
+                lock (_cuttedInfoList)
                 {
                     for (int i = 0; i < _cuttedInfoList.Count; i++)
                     {
@@ -212,7 +212,7 @@ namespace MeshCutter
 
             return null;
         }
-        
+
         /// <summary>
         /// ルートボーンから再帰的に、指定した名前を持つボーンを検索する
         /// </summary>
@@ -348,13 +348,16 @@ namespace MeshCutter
                 {
                     obj = new GameObject("Split Object " + i, new[] {
                         typeof(MeshFilter),
-                        typeof(MeshRenderer)
+                        typeof(MeshRenderer),
+                        typeof(Rigidbody),
                     });
                     obj.transform.position = target.MeshTransform.position;
                     obj.transform.rotation = target.MeshTransform.rotation;
 
                     obj.GetComponent<MeshFilter>().mesh = mesh;
                     obj.GetComponent<MeshRenderer>().materials = mats;
+                    float direction = i == 0 ? 1 : -1;
+                    obj.GetComponent<Rigidbody>().velocity = Vector3.forward * direction * 2;
                 }
 
                 cuttedObject[i] = obj;
@@ -373,7 +376,7 @@ namespace MeshCutter
             {
                 // Destroy target object.
                 target.transform.localScale = Vector3.zero;
-                Destroy(target.gameObject, 1f);
+                Destroy(target.gameObject);
             }
 
             if (OnCutted != null)
