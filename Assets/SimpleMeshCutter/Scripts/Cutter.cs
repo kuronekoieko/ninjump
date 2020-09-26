@@ -357,7 +357,7 @@ namespace MeshCutter
                     obj.GetComponent<MeshFilter>().mesh = mesh;
                     obj.GetComponent<MeshRenderer>().materials = mats;
                     float direction = i == 0 ? 1 : -1;
-                    obj.GetComponent<Rigidbody>().velocity = Vector3.forward * direction * 2;
+                    obj.GetComponent<Rigidbody>().velocity = Vector3.forward * direction * 4;
                 }
 
                 cuttedObject[i] = obj;

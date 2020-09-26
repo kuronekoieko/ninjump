@@ -7,6 +7,7 @@ public enum PlayerState
 {
     Run,
     Jump,
+    Dead,
 }
 
 public class PlayerController : MonoBehaviour
@@ -15,11 +16,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform jumperTf;
     [SerializeField] JumperController jumperController;
     float speed = 0.2f;
-    PlayerState playerState = PlayerState.Run;
+    [System.NonSerialized] public PlayerState playerState = PlayerState.Run;
     bool isRunRightWall;
     float wallsDistance;
-    float GetWallSign => isRunRightWall ? 1 : -1;
-
+    public float GetWallSign => isRunRightWall ? 1 : -1;
+    Sequence jumpSequence;
     void Start()
     {
         isRunRightWall = true;
@@ -39,34 +40,46 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerState.Jump:
                 break;
+            case PlayerState.Dead:
+                break;
             default:
                 break;
         }
         // animator.SetBool("Jump", playerState == PlayerState.Jump);
+
     }
 
     private void FixedUpdate()
     {
+        if (playerState == PlayerState.Dead) return;
         transform.Translate(Vector3.up * speed);
     }
 
     void Jump()
     {
+        float wallSign = GetWallSign;
+        isRunRightWall = !isRunRightWall;
         playerState = PlayerState.Jump;
         Vector3[] path = new Vector3[]
         {
-            new Vector3(wallsDistance * -GetWallSign/2f,0.5f,0),
-            new Vector3(wallsDistance * -GetWallSign,0,0),
+            new Vector3(wallsDistance * -wallSign/2f,0.5f,0),
+            new Vector3(wallsDistance * -wallSign,0,0),
         };
         float duration = 0.3f;
-        Sequence sequence = DOTween.Sequence()
+        jumpSequence = DOTween.Sequence()
         .Append(jumperTf.DOLocalPath(path, duration, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
-        .Join(jumperTf.DOLocalRotate(new Vector3(0, 180 * GetWallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
+        .Join(jumperTf.DOLocalRotate(new Vector3(0, 180 * wallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
         .OnComplete(() =>
         {
-            isRunRightWall = !isRunRightWall;
             playerState = PlayerState.Run;
         });
+    }
+
+    public void Dead()
+    {
+        playerState = PlayerState.Dead;
+        animator.SetBool("Death", true);
+        jumpSequence.Kill();
     }
 
 }
