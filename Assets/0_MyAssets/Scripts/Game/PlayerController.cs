@@ -8,6 +8,7 @@ public enum PlayerState
     Run,
     Jump,
     Dead,
+    Goaled,
 }
 
 public class PlayerController : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] JumperController jumperController;
     float speed = 0.2f;
     [System.NonSerialized] public PlayerState playerState = PlayerState.Run;
-    bool isRunRightWall;
+    [System.NonSerialized] public bool isRunRightWall;
     float wallsDistance;
     float GetWallSign => isRunRightWall ? 1 : -1;
     Sequence jumpSequence;
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (playerState == PlayerState.Dead) return;
+        if (playerState == PlayerState.Goaled) return;
         transform.Translate(Vector3.up * speed);
     }
 
@@ -81,4 +83,10 @@ public class PlayerController : MonoBehaviour
         jumpSequence.Kill();
     }
 
+
+    public void Goaled()
+    {
+        animator.transform.localEulerAngles = Vector3.zero;
+        animator.SetBool("Dance", true);
+    }
 }

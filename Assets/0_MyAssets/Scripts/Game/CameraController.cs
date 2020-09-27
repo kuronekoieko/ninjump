@@ -15,6 +15,12 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (playerController.playerState == PlayerState.Goaled) return;
         transform.position = playerController.transform.position + offset;
+    }
+
+    public void ZoomOnGoaled(Transform targetTf)
+    {
+        transform.DOMove(targetTf.position + offset / 2f, 1.5f);
     }
 }
