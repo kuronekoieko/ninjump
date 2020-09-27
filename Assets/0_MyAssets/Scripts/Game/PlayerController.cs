@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-        // animator.SetBool("Jump", playerState == PlayerState.Jump);
 
     }
 
@@ -80,20 +79,25 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        animator.SetBool("Jump", true);
         playerState = PlayerState.Jump;
         Vector3[] path = new Vector3[]
         {
             new Vector3(wallsDistance * -GetWallSign/2f,0.5f,0),
             new Vector3(wallsDistance * -GetWallSign,0,0),
         };
-        float duration = 0.25f;
+        float duration = 0.5f;
+        Vector3 a = jumperTf.eulerAngles;
+        jumperTf.localEulerAngles = Vector3.zero;
         jumpSequence = DOTween.Sequence()
         .Append(jumperTf.DOLocalPath(path, duration, PathType.CatmullRom).SetRelative().SetEase(Ease.Linear))
-        .Join(jumperTf.DOLocalRotate(new Vector3(35f * -GetWallSign, 180f * GetWallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
+        //.Join(jumperTf.DOLocalRotate(new Vector3(35f * -GetWallSign, 180f * GetWallSign, 0), duration).SetRelative().SetEase(Ease.InSine))
         .OnComplete(() =>
         {
+            jumperTf.eulerAngles = a + new Vector3(35f * -GetWallSign, 180f * GetWallSign, 0);
             isRunRightWall = !isRunRightWall;
             playerState = PlayerState.Run;
+            animator.SetBool("Jump", false);
         });
     }
 
@@ -107,6 +111,8 @@ public class PlayerController : MonoBehaviour
 
     public void Goaled()
     {
+        jumpSequence.Kill();
+        animator.SetBool("Jump", false);
         animator.transform.localEulerAngles = Vector3.zero;
         animator.SetBool("Dance", true);
     }
