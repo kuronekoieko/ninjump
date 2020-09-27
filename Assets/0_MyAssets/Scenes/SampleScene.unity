@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 1, g: 0.740566, b: 0.89375484, a: 0}
+  m_FogColor: {r: 1, g: 0.8160377, b: 0.9247427, a: 0}
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 100
@@ -4113,7 +4113,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.740566, b: 0.89375484, a: 0}
+  m_BackGroundColor: {r: 1, g: 0.8160377, b: 0.9247427, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
