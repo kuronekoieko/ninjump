@@ -40,7 +40,7 @@ public class ClearCanvasManager : BaseCanvasManager
         retryButton.gameObject.SetActive(isLastStage);
         if (isLastStage) titleText.text = "COMPLETE!";
 
-        DOVirtual.DelayedCall(1.2f, () =>
+        DOVirtual.DelayedCall(1.5f, () =>
         {
             gameObject.SetActive(true);
             transform.localScale = Vector3.zero;

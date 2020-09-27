@@ -33,6 +33,8 @@ public class JumperController : MonoBehaviour
     void HitObstacle(Collider other)
     {
         if (!other.gameObject.CompareTag("Obstacle")) return;
+        if (Variables.screenState != ScreenState.Game) return;
+        Variables.screenState = ScreenState.Failed;
         playerController.Dead();
         rb.useGravity = true;
         Vector3 vel = Vector3.zero;
@@ -46,6 +48,7 @@ public class JumperController : MonoBehaviour
         if (other.gameObject != goalController.gameObject) return;
         if (playerController.playerState == PlayerState.Goaled) return;
         if (playerController.playerState == PlayerState.Dead) return;
+        if (Variables.screenState != ScreenState.Game) return;
         playerController.playerState = PlayerState.Goaled;
         transform.position = playerController.isRunRightWall ? goalController.StandPointR : goalController.StandPointL;
         Vector3 forward = cameraController.transform.position - transform.position;
@@ -53,5 +56,6 @@ public class JumperController : MonoBehaviour
         transform.forward = forward;
         playerController.Goaled();
         cameraController.ZoomOnGoaled(transform);
+        Variables.screenState = ScreenState.Clear;
     }
 }

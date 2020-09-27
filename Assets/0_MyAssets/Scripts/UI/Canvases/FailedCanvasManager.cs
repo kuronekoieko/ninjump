@@ -29,7 +29,7 @@ public class FailedCanvasManager : BaseCanvasManager
 
     protected override void OnOpen()
     {
-        DOVirtual.DelayedCall(0f, () =>
+        DOVirtual.DelayedCall(0.7f, () =>
         {
             gameObject.SetActive(true);
             transform.localScale = Vector3.zero;

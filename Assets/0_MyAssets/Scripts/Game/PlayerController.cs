@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public enum PlayerState
 {
+    Waiting,
     Run,
     Jump,
     Dead,
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform jumperTf;
     [SerializeField] JumperController jumperController;
     float speed = 0.2f;
-    [System.NonSerialized] public PlayerState playerState = PlayerState.Run;
+    [System.NonSerialized] public PlayerState playerState = PlayerState.Waiting;
     [System.NonSerialized] public bool isRunRightWall;
     float wallsDistance;
     float GetWallSign => isRunRightWall ? 1 : -1;
@@ -25,7 +26,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isRunRightWall = true;
-        wallsDistance = Mathf.Abs(jumperTf.position.x) * 2;
         //jumperController.SetOnCollisionEnter += OnHitWall;
     }
 
@@ -33,6 +33,12 @@ public class PlayerController : MonoBehaviour
     {
         switch (playerState)
         {
+            case PlayerState.Waiting:
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StartJump();
+                }
+                break;
             case PlayerState.Run:
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -54,7 +60,22 @@ public class PlayerController : MonoBehaviour
     {
         if (playerState == PlayerState.Dead) return;
         if (playerState == PlayerState.Goaled) return;
+        if (playerState == PlayerState.Waiting) return;
         transform.Translate(Vector3.up * speed);
+    }
+
+    void StartJump()
+    {
+        float duration = 0.2f;
+        DOTween.Sequence()
+        .Append(jumperTf.DOLocalMove(new Vector3(7.54f, 3f, 0), duration).SetEase(Ease.Linear))
+        .Join(jumperTf.DOLocalRotate(new Vector3(0, 0, 90), duration))
+        .OnComplete(() =>
+        {
+            isRunRightWall = true;
+            playerState = PlayerState.Run;
+            wallsDistance = Mathf.Abs(jumperTf.position.x) * 2;
+        });
     }
 
     void Jump()
