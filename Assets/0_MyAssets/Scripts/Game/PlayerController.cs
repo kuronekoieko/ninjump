@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Transform jumperTf;
     [SerializeField] JumperController jumperController;
+    [SerializeField] ParticleSystem swordPS;
     float speed = 0.2f;
     [System.NonSerialized] public PlayerState playerState = PlayerState.Waiting;
     [System.NonSerialized] public bool isRunRightWall;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     Sequence jumpSequence;
     void Start()
     {
+        swordPS.gameObject.SetActive(false);
         isRunRightWall = true;
         //jumperController.SetOnCollisionEnter += OnHitWall;
     }
@@ -79,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        swordPS.gameObject.SetActive(true);
         animator.SetBool("Jump", true);
         playerState = PlayerState.Jump;
         Vector3[] path = new Vector3[]
@@ -98,6 +101,7 @@ public class PlayerController : MonoBehaviour
             isRunRightWall = !isRunRightWall;
             playerState = PlayerState.Run;
             animator.SetBool("Jump", false);
+            swordPS.gameObject.SetActive(false);
         });
     }
 
@@ -106,6 +110,7 @@ public class PlayerController : MonoBehaviour
         playerState = PlayerState.Dead;
         animator.SetBool("Death", true);
         jumpSequence.Kill();
+        swordPS.gameObject.SetActive(false);
     }
 
 
@@ -115,5 +120,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Jump", false);
         animator.transform.localEulerAngles = Vector3.zero;
         animator.SetBool("Dance", true);
+        swordPS.gameObject.SetActive(false);
     }
 }

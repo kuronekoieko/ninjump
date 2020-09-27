@@ -10,6 +10,7 @@ public class JumperController : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] Cutter cutter;
     [SerializeField] Rigidbody rb;
+    
     [Inject] GoalController goalController;
     [Inject] CameraController cameraController;
     public UnityAction<Collider> SetOnCollisionEnter;
