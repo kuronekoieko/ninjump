@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 7571397137851170909}
   - component: {fileID: 7571397137851170908}
   - component: {fileID: 7571397137851170907}
+  - component: {fileID: 1338539720}
   m_Layer: 0
   m_Name: Jumper
   m_TagString: Untagged
@@ -140,9 +141,9 @@ SphereCollider:
   m_GameObject: {fileID: 7571397137851170910}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 1.2182829
+  m_Radius: 2.47
   m_Center: {x: -1.9508964e-15, y: 1.1372819, z: 0}
 --- !u!114 &7571397137851170908
 MonoBehaviour:
@@ -174,6 +175,19 @@ MonoBehaviour:
   _autoDestroyTarget: 1
   _needAnimation: 0
   _cutDefaultMaterial: {fileID: 0}
+--- !u!65 &1338539720
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7571397137851170910}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 1.59, z: 4.5}
+  m_Center: {x: 0, y: 1.16, z: 0}
 --- !u!1001 &7571397136567580700
 PrefabInstance:
   m_ObjectHideFlags: 0
