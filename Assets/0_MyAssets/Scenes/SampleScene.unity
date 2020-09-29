@@ -2015,37 +2015,37 @@ PrefabInstance:
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.77
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.76
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.09
+      value: -24.5
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.12238777
+      value: 0.02008699
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.22453909
+      value: -0.22628467
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.02843835
+      value: 0.004667471
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9663306
+      value: 0.9738429
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
@@ -2055,7 +2055,7 @@ PrefabInstance:
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 14.436001
+      value: 2.3630002
       objectReference: {fileID: 0}
     - target: {fileID: 2031833835838641164, guid: c7a487a36e8664a888f748af95f84f1a,
         type: 3}

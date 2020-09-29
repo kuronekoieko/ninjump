@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     {
         float duration = 0.2f;
         DOTween.Sequence()
-        .Append(jumperTf.DOLocalMove(new Vector3(7.54f, 3f, 0), duration).SetEase(Ease.Linear))
+        .Append(jumperTf.DOLocalMove(new Vector3(7.54f, 0f, 0), duration).SetEase(Ease.Linear))
         .Join(jumperTf.DOLocalRotate(new Vector3(0, 0, 90), duration))
         .OnComplete(() =>
         {
